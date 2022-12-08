@@ -6,33 +6,38 @@ A = np.array([[1, 1, -1, 0,  0],
               [-2, 1,  0, 0, -1]])
 
 # Ergebnisvektor des Gleichungssystems
-b = [5, 5, 2]
+b = np.array([5, 5, 2])
 
 # Koeffizienten der Zielfunktion
-c = [2, 3, 0, 0, 0]
+c = np.array([2, 3, 0, 0, 0])
+print(c)
+# Platzhalter für Hilfsgröße q (Liste mit Nullen und der gleichen Zeilenanzahl wie A)
+q = np.empty(len(A))
 
-# Platzhalter für Hilfsgröße q (Liste mit Nullen und der gleichen Zeilenanzahl von A)
-q = [0]*len(A)
-
+# Zählvariable für Indizierung der Iterationsschritte
 k = 1
-# Abbruchkriterium: Das Ergebnis lässt sich verbessern, solange Koeffizienten der Zielfunktion > 0
+
+# Abbruchkriterium-------------------------------------------------------------------------
+# Das Ergebnis lässt sich verbessern, solange Koeffizienten der Zielfunktion > 0
 while max(c) > 0:
 
+    # Abgrenzung der einzelnen Iterationsschritte in der Ausgabe
     print("Iterationsschritt:", k, "--------------------------")
     k = k + 1
 
-    # PIVOT-SPALTE: Finde Indizes des größten Koeffizienten in der Zielfunktion c
-    piv_j = c.index(max(c))
+    # PIVOT-SPALTE:-----------------------------------------------------------------------
+    # Finde Indizes des größten Koeffizienten in der Zielfunktion c
+    piv_j = np.argmax(c)
 
+    # PIVOT-ZEILE:-----------------------------------------------------------------------
     # Schleife über alle Zeilen von A
     for i in range(len(A)):
         # Hilfsgröße q
         q[i] = b[i] / A[i, piv_j]
+    # Finde Indizes des kleinsten positiven Koeffizienten in q
+    piv_i = np.argmin(i for i in q if i > 0)
 
-    # PIVOT-ZEILE: Finde Indizes des kleinsten positiven Koeffizienten in q
-    piv_i = q.index(min([i for i in q if i > 0]))
-
-    # Änderung der Koeffizienten von b
+    # ÄNDERUNG b-----------------------------------------------------------------------
     # Schleife über alle Zeilen von b
     for i in range(len(A)):
         # Normierung der Zeile i vom Ergebnisvektor b
@@ -44,7 +49,7 @@ while max(c) > 0:
     print("Ergebnisvektor:")
     print(b)
 
-    # Änderung der Koeffizienten von A
+    # ÄNDERUNG A-----------------------------------------------------------------------
     for s in range(len(A[0])):                      # über Spalte s (0 bis 4)
         for r in range(len(A)):                     # über Zeile r (0 bis 2)
             if s == piv_j and r == piv_i:
@@ -58,7 +63,7 @@ while max(c) > 0:
     print("Koeffizientenmatrix:")
     print(A)
 
-    # Änderung der Koeffizienten von c
+    # ÄNDERUNG c-----------------------------------------------------------------------
     for s in range(len(A[0])):
         c[s] = c[s] - (c[piv_j] * A[piv_i, s]) / A[piv_i, piv_j]
     print("Zielfunktion:")
