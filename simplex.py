@@ -3,9 +3,11 @@
 import numpy as np
 
 # Koeffizienten des Gleichungssystems
-A = np.array([[1, 1, -1, 0,  0],
-              [-1, 1,  0, 1,  0],
-              [-2, 1,  0, 0, -1]])
+A = np.array([
+    [1, 1, -1, 0, 0],
+    [-1, 1, 0, 1, 0],
+    [-2, 1, 0, 0, -1]
+])
 
 # Ergebnisvektor des Gleichungssystems
 b = np.array([5, 5, 2])
