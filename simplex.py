@@ -1,3 +1,5 @@
+"""Implementierung des Simplex-Optimierungsalgorithmus in Python - 08/12/22"""
+
 import numpy as np
 
 # Koeffizienten des Gleichungssystems
@@ -10,7 +12,7 @@ b = np.array([5, 5, 2])
 
 # Koeffizienten der Zielfunktion
 c = np.array([2, 3, 0, 0, 0])
-print(c)
+
 # Platzhalter für Hilfsgröße q (Liste mit Nullen und der gleichen Zeilenanzahl wie A)
 q = np.empty(len(A))
 
@@ -35,8 +37,10 @@ while max(c) > 0:
         # Hilfsgröße q
         q[i] = b[i] / A[i, piv_j]
     # Finde Indizes des kleinsten positiven Koeffizienten in q
-    piv_i = np.argmin(i for i in q if i > 0)
+    piv_i = np.argmin(c)
 
+    print("Pivotelement [zeile, spalte]:")
+    print("[", piv_i, ",", piv_j, "]")
     # ÄNDERUNG b-----------------------------------------------------------------------
     # Schleife über alle Zeilen von b
     for i in range(len(A)):
