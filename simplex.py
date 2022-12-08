@@ -44,10 +44,12 @@ while max(c) > 0:
     # Finde Indizes des kleinsten positiven Koeffizienten in q
     piv_i = np.argmin(q[q > 0])
 
+    # PIVOT-Element:---------------------------------------------------------------------
     piv = A[piv_i, piv_j]
 
     print("Pivot-Element [zeile, spalte]:")
     print("A[", piv_i, ",", piv_j, "] =", piv)
+
     # ÄNDERUNG b-----------------------------------------------------------------------
     # Schleife über alle Zeilen von b
     for i in range(len(A)):
