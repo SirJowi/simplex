@@ -24,6 +24,7 @@ k = 1
 while max(c) > 0:
 
     # Abgrenzung der einzelnen Iterationsschritte in der Ausgabe
+    print("")
     print("Iterationsschritt:", k, "--------------------------")
     k = k + 1
 
@@ -36,40 +37,45 @@ while max(c) > 0:
     for i in range(len(A)):
         # Hilfsgröße q
         q[i] = b[i] / A[i, piv_j]
+
+    print("Quotient q:")
+    print(q)
+
     # Finde Indizes des kleinsten positiven Koeffizienten in q
-    piv_i = np.argmin(c)
+    piv_i = np.argmin(q[q > 0])
+
+    piv = A[piv_i, piv_j]
 
     print("Pivot-Element [zeile, spalte]:")
-    print("[", piv_i, ",", piv_j, "]")
+    print("A[", piv_i, ",", piv_j, "] =", piv)
     # ÄNDERUNG b-----------------------------------------------------------------------
     # Schleife über alle Zeilen von b
     for i in range(len(A)):
         # Normierung der Zeile i vom Ergebnisvektor b
         if i == piv_i:
-            b[i] = b[i] / A[piv_i, piv_j]
+            b[i] = b[i] / piv
         # Berechnungen der übrigen Koeffizienten von b
         else:
             b[i] = b[i] - b[piv_i] * A[i, piv_j]
-    print("Ergebnisvektor:")
+    print("Ergebnisvektor b:")
     print(b)
 
     # ÄNDERUNG A-----------------------------------------------------------------------
     for s in range(len(A[0])):                      # über Spalte s (0 bis 4)
         for r in range(len(A)):                     # über Zeile r (0 bis 2)
             if s == piv_j and r == piv_i:
-                A[r, s] = 1 / A[piv_i, piv_j]
+                A[r, s] = 1 / piv
             if s != piv_j and r == piv_i:
-                A[r, s] = A[r, s] / A[piv_i, piv_j]
+                A[r, s] = A[r, s] / piv
             if s == piv_j and r != piv_i:
-                A[r, s] = A[r, piv_j] - (A[r, piv_j] * A[piv_i, s]) / A[piv_i, piv_j]
+                A[r, s] = A[r, piv_j] - (A[r, piv_j] * A[piv_i, s]) / piv
             if s != piv_j and r != piv_i:
-                A[r, s] = A[r, s] - (A[r, piv_j] * A[piv_i, s]) / A[piv_i, piv_j]
-    print("Koeffizientenmatrix:")
+                A[r, s] = A[r, s] - (A[r, piv_j] * A[piv_i, s]) / piv
+    print("Koeffizientenmatrix A:")
     print(A)
 
     # ÄNDERUNG c-----------------------------------------------------------------------
     for s in range(len(A[0])):
-        c[s] = c[s] - (c[piv_j] * A[piv_i, s]) / A[piv_i, piv_j]
+        c[s] = c[s] - (c[piv_j] * A[piv_i, s]) / piv
     print("Zielfunktion:")
     print(c)
-
