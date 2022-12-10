@@ -46,7 +46,10 @@ while max(c) > 0 and k < 4:
     print("Hilfsquotient \t q:", q)
 
     # Finde Indizes des kleinsten positiven Koeffizienten in q
-    piv_r = np.argmin(q[q > 0])
+    for i in range(len(q)):
+        if q[i] < 0:
+            q[i] = np.inf
+    piv_r = np.argmin(q)
 
     # PIVOT-Element:---------------------------------------------------------------------
     piv = A[piv_r, piv_s]
