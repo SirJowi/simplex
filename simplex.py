@@ -30,7 +30,8 @@ while max(c) > 0:
 
     # Abgrenzung der einzelnen Iterationsschritte in der Ausgabe
     print("")
-    print("Iterationsschritt :", k, "--------------------------")
+    print("------------------------------------")
+    print("Iterationsschritt :", k,)
     k = k + 1
 
     # PIVOT-SPALTE:-----------------------------------------------------------------------
@@ -57,7 +58,7 @@ while max(c) > 0:
 
     # ÄNDERUNG b-----------------------------------------------------------------------
     # Schleife über alle Zeilen von b
-    for i in range(len(A)):
+    for i in range(len(b)):
         if i != piv_r:
             b[i] = b[i] - b[piv_r] * A[i, piv_s]
     print("Ergebnisvektor \t b:", b)
