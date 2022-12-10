@@ -28,12 +28,12 @@ k = 1
 
 # Abbruchkriterium-------------------------------------------------------------------
 # Das Ergebnis lässt sich verbessern, solange Koeffizienten der Zielfunktion > 0
-while max(c) > 0 and k < 4:     # k begrenzt, damit Schleife nicht unendlich läuft
+while max(c) > 0 and k < 5:     # k begrenzt, damit Schleife nicht unendlich läuft
 
     # Abgrenzung der einzelnen Iterationsschritte in der Ausgabe
     print("")
     print("------------------------------------")
-    print("Iterationsschritt :", k,)
+    print("Iterationsschritt:", k,)
     k = k + 1
 
     # PIVOT-SPALTE:------------------------------------------------------------------
@@ -44,7 +44,7 @@ while max(c) > 0 and k < 4:     # k begrenzt, damit Schleife nicht unendlich lä
     # Schleife über alle Zeilen von A
     for i in range(len(A)):
         q[i] = b[i] / A[i, piv_s]   # Hilfsgröße q
-    print("Hilfsquotient \t q:", q)
+    print("Hilfsquotient \t : q =", q)
 
     # Finde Indizes des kleinsten positiven Koeffizienten in q
     for i in range(len(q)):
@@ -54,7 +54,7 @@ while max(c) > 0 and k < 4:     # k begrenzt, damit Schleife nicht unendlich lä
 
     # PIVOT-Element:-----------------------------------------------------------------
     piv = A[piv_r, piv_s]
-    print("Pivot-Element \t  :", "A[", piv_r, ",", piv_s, "] =", piv)
+    print("Pivot-Element \t :", "A[", piv_r, ",", piv_s, "] =", piv)
 
     # Normieren der Pivot-Zeile von b und A------------------------------------------
     b[piv_r] = b[piv_r] / A[piv_r, piv_s]
@@ -64,11 +64,11 @@ while max(c) > 0 and k < 4:     # k begrenzt, damit Schleife nicht unendlich lä
     for i in range(len(b)):     # Schleife über alle Zeilen von b
         if i != piv_r:      # alle Elemente von b außer Pivot-Zeile
             b[i] = b[i] - b[piv_r] * A[i, piv_s]
-    print("Ergebnisvektor \t b:", b)
+    print("Ergebnisvektor \t : b =", b)
 
     # ÄNDERUNG z
     z = z - b[piv_r] * c[piv_s]
-    print("Gewinn \t\t\t z:", z)
+    print("Gewinn \t\t\t : z =", z)
 
     # ÄNDERUNG c---------------------------------------------------------------------
     for j in range(len(A[0])):
@@ -76,7 +76,7 @@ while max(c) > 0 and k < 4:     # k begrenzt, damit Schleife nicht unendlich lä
             c[j] = c[j] - c[piv_s] * A[piv_r, j]
 
     c[piv_s] = 0            # Pivot-Spalte erst zum Schluss 0 setzen
-    print("Zielfunktion \t c:", c)
+    print("Zielfunktion \t : c =", c)
 
     # ÄNDERUNG A---------------------------------------------------------------------
     for i in range(len(A)):
@@ -87,5 +87,5 @@ while max(c) > 0 and k < 4:     # k begrenzt, damit Schleife nicht unendlich lä
     for i in range(len(A)):
         if i != piv_r:
             A[i, piv_s] = 0     # Pivot-Spalte erst zum Schluss 0 setzen
-    print("Koeffizientenmatrix A:")
+    print("Koeffizientenmatrix : A =")
     print(A)
