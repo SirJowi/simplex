@@ -26,7 +26,7 @@ k = 1
 
 # Abbruchkriterium-------------------------------------------------------------------------
 # Das Ergebnis lässt sich verbessern, solange Koeffizienten der Zielfunktion > 0
-while max(c) > 0:
+while max(c) > 0 and k < 4:
 
     # Abgrenzung der einzelnen Iterationsschritte in der Ausgabe
     print("")
@@ -46,7 +46,7 @@ while max(c) > 0:
     print("Hilfsquotient \t q:", q)
 
     # Finde Indizes des kleinsten positiven Koeffizienten in q
-    piv_r = np.argmin(q[q > 0.0])
+    piv_r = np.argmin(q[q > 0])
 
     # PIVOT-Element:---------------------------------------------------------------------
     piv = A[piv_r, piv_s]
@@ -68,11 +68,14 @@ while max(c) > 0:
     print("Gewinn \t\t\t z:", z)
 
     # ÄNDERUNG c-----------------------------------------------------------------------
+    for j in range(len(A[0])):
+        if j != piv_s:
+            c[j] = c[j] - c[piv_s] * A[piv_r, j]
+
     for i in range(len(A)):
         for j in range(len(A[0])):
-            if j != piv_s:
-                c[j] = c[j] - A[i, piv_s] * A[piv_r, j]
-    c[piv_s] = 0
+            if i != piv_r and j == piv_s:
+                c[j] = 0
     print("Zielfunktion \t c:", c)
 
     # ÄNDERUNG A-----------------------------------------------------------------------
