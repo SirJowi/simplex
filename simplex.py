@@ -1,4 +1,4 @@
-"""Implementierung des Simplex-Optimierungsalgorithmus in Python - 08/12/22"""
+"""Implementierung des Simplex-Optimierungsalgorithmus in Python - 10/12/22"""
 
 import numpy as np
 
