@@ -11,6 +11,14 @@ def simplex(A, b, c):
     # Ergebnis der Optimierungsfunktion
     z = 0.0
 
+    # Ermittlung der Anzahl der
+    anz_mgl_basis = 1
+    while c[anz_mgl_basis] != 0:
+        anz_mgl_basis += 1
+
+    # Im Laufe des Algorithmus werden die Pivotelemente abgespeichert um am Ende die Basisvariablen herauszufinden
+    speicher_pivelemente = np.zeros(len(c))
+
     # Zählvariable für Indizierung der Iterationsschritte
     k = 1
 
@@ -43,6 +51,8 @@ def simplex(A, b, c):
         # PIVOT-Element:-----------------------------------------------------------------
         piv = A[piv_r, piv_s]
         print("Pivot-Element \t :", "A[", piv_r, ",", piv_s, "] =", piv)
+
+        speicher_pivelemente[piv_r] = piv_s+1
 
         # Normieren der Pivot-Zeile von b und A------------------------------------------
         b[piv_r] = b[piv_r] / A[piv_r, piv_s]
@@ -77,3 +87,5 @@ def simplex(A, b, c):
                 A[i, piv_s] = 0     # Pivot-Spalte erst zum Schluss 0 setzen
         print("Koeffizientenmatrix : A =")
         print(A)
+
+    print(speicher_pivelemente)
