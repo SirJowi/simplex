@@ -12,19 +12,19 @@ def simplex(A, b, c):
     z = 0.0
 
     # Ermittlung der Anzahl der
-    anz_mgl_basis = 1
+    anz_mgl_basis = 0
     while c[anz_mgl_basis] != 0:
         anz_mgl_basis += 1
 
-    # Im Laufe des Algorithmus werden die Pivotelemente abgespeichert um am Ende die Basisvariablen herauszufinden
-    speicher_pivelemente = np.zeros(len(c))
+    # Pivot-Elemente abspeichern, zur Ermittlung der Basisvariablen und deren Lösungen
+    speicher_piv = np.full(len(c), np.inf)  # vorfüllen, weil alle geänderten Orte später erkennbar sein sollen
 
     # Zählvariable für Indizierung der Iterationsschritte
     k = 1
 
     # Abbruchkriterium-------------------------------------------------------------------
     # Das Ergebnis lässt sich verbessern, solange Koeffizienten der Zielfunktion > 0
-    while max(c) > 0 and k < 5:     # k begrenzt, damit Schleife nicht unendlich läuft
+    while max(c) > 0 and k < 10:     # k begrenzt, damit Schleife nicht unendlich läuft
 
         # Abgrenzung der einzelnen Iterationsschritte in der Ausgabe
         print("")
@@ -52,7 +52,8 @@ def simplex(A, b, c):
         piv = A[piv_r, piv_s]
         print("Pivot-Element \t :", "A[", piv_r, ",", piv_s, "] =", piv)
 
-        speicher_pivelemente[piv_r] = piv_s+1
+        # Orte der Pivot-Elemente jedes Iterationsschrittes abspeichern
+        speicher_piv[piv_s] = piv_r
 
         # Normieren der Pivot-Zeile von b und A------------------------------------------
         b[piv_r] = b[piv_r] / A[piv_r, piv_s]
@@ -88,4 +89,15 @@ def simplex(A, b, c):
         print("Koeffizientenmatrix : A =")
         print(A)
 
-    print(speicher_pivelemente)
+    # Ende des Simplex Algorithmus
+    print()
+    print("------------------------------------")
+    print("Basisvariablen der Zielfunktion")
+    # Ermittlung der Basisvariablen und deren Werte
+    for i in range(len(c)):
+        if speicher_piv[i] != np.inf and i < anz_mgl_basis:
+            print("x  ", i+1, "=", b[round(speicher_piv[i])])
+    # Ermittlung ob Schlupf-Variablen Basisvariablen sind
+    for i in range(len(c)):
+        if speicher_piv[i] != np.inf and i >= anz_mgl_basis:
+            print("x_s", i-anz_mgl_basis+1, "=", b[round(speicher_piv[i])])
