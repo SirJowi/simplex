@@ -11,7 +11,7 @@ def simplex(A, b, c):
     # Ergebnis der Optimierungsfunktion
     z = 0.0
 
-    # Ermittlung der Anzahl der
+    # Ermittlung der Anzahl der Variablen ohne Schlupf-Variablen
     anz_mgl_basis = 0
     while c[anz_mgl_basis] != 0:
         anz_mgl_basis += 1
@@ -89,15 +89,21 @@ def simplex(A, b, c):
         print("Koeffizientenmatrix : A =")
         print(A)
 
-    # Ende des Simplex Algorithmus
+    # Ende des Simplex Algorithmus------------------------------------------------------
     print()
     print("------------------------------------")
-    print("Basisvariablen der Zielfunktion")
+    print("|  SIMPLEX-VERFAHREN ABGESCHLOSSEN |")
+    print("------------------------------------")
+    print("Basisvariablen der Zielfunktion:")
     # Ermittlung der Basisvariablen und deren Werte
     for i in range(len(c)):
         if speicher_piv[i] != np.inf and i < anz_mgl_basis:
             print("x  ", i+1, "=", b[round(speicher_piv[i])])
+            # muss gerundet werden, da die Werte vorher nicht als Integer abgespeichert
+            # und somit nicht für die Indizierung eines Arrays nutzbar
+
     # Ermittlung ob Schlupf-Variablen Basisvariablen sind
     for i in range(len(c)):
         if speicher_piv[i] != np.inf and i >= anz_mgl_basis:
             print("x_s", i-anz_mgl_basis+1, "=", b[round(speicher_piv[i])])
+    print("------------------------------------")
