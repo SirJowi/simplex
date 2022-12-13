@@ -5,8 +5,8 @@ import numpy as np
 
 def simplex(A, b, c):
     # SIMPLEX-ALGORITHMUS beginnt hier---------------------------------------------------
-    # Platzhalter für Hilfsgröße q (Liste mit Nullen und der gleichen Zeilenanzahl wie A)
-    q = np.empty(len(A))
+    # Platzhalter für Hilfsgröße q (Liste mit Nullen und der gleichen Dimension, wie b)
+    q = np.empty(len(b))
 
     # Ergebnis der Optimierungsfunktion
     z = 0.0
@@ -37,9 +37,12 @@ def simplex(A, b, c):
         piv_s = np.argmax(c)    # liefert die Position des größten Wertes in Array
 
         # PIVOT-ZEILE:-------------------------------------------------------------------
-        # Schleife über alle Zeilen von A
-        for i in range(len(A)):
-            q[i] = b[i] / A[i, piv_s]   # Hilfsgröße q
+        # Schleife über alle Zeilen von q
+        for i in range(len(q)):
+            if A[i, piv_s] != 0:
+                q[i] = b[i] / A[i, piv_s]   # Hilfsgröße q
+            if A[i, piv_s] == 0:
+                q[i] = np.inf
         print("Hilfsquotient \t : q =", q)
 
         # Finde Indizes des kleinsten positiven Koeffizienten in q
