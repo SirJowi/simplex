@@ -68,7 +68,7 @@ def simplex(A, b, c):
                 b[i] = b[i] - b[piv_r] * A[i, piv_s]
         print("Ergebnisvektor \t : b =", b)
 
-        # ÄNDERUNG z
+        # ÄNDERUNG z---------------------------------------------------------------------
         z = z - b[piv_r] * c[piv_s]
         print("Gewinn \t\t\t : z =", z)
 
@@ -103,7 +103,7 @@ def simplex(A, b, c):
         if speicher_piv[i] != np.inf and i < anz_mgl_basis:
             print("x  ", i+1, "=", b[round(speicher_piv[i])])
             # muss gerundet werden, da die Werte vorher nicht als Integer abgespeichert
-            # und somit nicht für die Indizierung eines Arrays nutzbar
+            # und somit nicht für die Indizierung eines Arrays nutzbar sind
 
     # Ermittlung ob Schlupf-Variablen Basisvariablen sind
     for i in range(len(c)):
